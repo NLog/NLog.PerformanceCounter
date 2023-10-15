@@ -23,7 +23,17 @@ NLog extensions to [Display Windows Performance Counters](https://github.com/NLo
     </extensions>
     ```
 
-### How to use PerformanceCounterLayoutRenderer
+   Alternative register from code using [fluent configuration API](https://github.com/NLog/NLog/wiki/Fluent-Configuration-API):
+
+   ```csharp
+   LogManager.Setup().SetupExtensions(ext => {
+      ext.RegisterTarget<NLog.Targets.PerformanceCounterTarget>();
+      ext.RegisterLayoutRenderer<NLog.LayoutRenderers.PerformanceCounterLayoutRenderer>();
+   });
+   ```
+
+### Example of displaying PerformanceCounter 
+Example of `NLog.config`-file that displays Windows Performance Counter value:
 
 ```xml
 <nlog>
@@ -39,7 +49,8 @@ NLog extensions to [Display Windows Performance Counters](https://github.com/NLo
 </nlog>
 ```
 
-### How to use PerformanceCounterTarget
+### Example of updating PerformanceCounter 
+Example of `NLog.config`-file that updates Windows Performance Counter value:
 
 ```xml
 <nlog>
