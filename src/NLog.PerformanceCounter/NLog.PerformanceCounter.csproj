@@ -19,9 +19,10 @@
     <Copyright>Copyright (c) 2004-$(CurrentYear) NLog Project - https://nlog-project.org/ </Copyright>
 
     <PackageReleaseNotes>
-  - Update NLog dependency to 6.2.2.
+    - Update NLog dependency to 6.2.2.
+    - Update System.Diagnostics.PerformanceCounter dependency to 10.0.14.
     - Drop support for .NET Framework 4.5, which is end of life.
-  - See [PerformanceCounter Target Docs](https://github.com/NLog/NLog/wiki/PerfCounter-target) and [PerformanceCounter LayoutRenderer Docs](https://github.com/NLog/NLog/wiki/PerformanceCounter-Layout-Renderer).
+    - See [PerformanceCounter Target Docs](https://github.com/NLog/NLog/wiki/PerfCounter-target) and [PerformanceCounter LayoutRenderer Docs](https://github.com/NLog/NLog/wiki/PerformanceCounter-Layout-Renderer).
     </PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>NLog;Windows;PerformanceCounter;logging;log</PackageTags>
@@ -60,7 +61,7 @@
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="4.5.0" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="10.0.14" />
   </ItemGroup>
 
   <ItemGroup>
