@@ -98,14 +98,12 @@ namespace NLog.Targets
         /// Gets or sets the name of the performance counter category.
         /// </summary>
         /// <docgen category='Performance Counter Options' order='10' />
-        [RequiredParameter]
         public string CategoryName { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the performance counter.
         /// </summary>
         /// <docgen category='Performance Counter Options' order='10' />
-        [RequiredParameter]
         public string CounterName { get; set; }
 
         /// <summary>
@@ -235,6 +233,18 @@ namespace NLog.Targets
             }
 
             return PerformanceCounterCategory.CounterExists(CounterName, CategoryName);
+        }
+
+        /// <inheritdoc/>
+        protected override void InitializeTarget()
+        {
+            base.InitializeTarget();
+
+            if (string.IsNullOrEmpty(CategoryName))
+                throw new NLogConfigurationException($"{nameof(CategoryName)} must be specified.");
+
+            if (string.IsNullOrEmpty(CounterName))
+                throw new NLogConfigurationException($"{nameof(CounterName)} must be specified.");
         }
 
         /// <summary>

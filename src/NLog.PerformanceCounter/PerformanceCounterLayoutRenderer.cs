@@ -54,14 +54,12 @@ namespace NLog.LayoutRenderers
         /// Gets or sets the name of the counter category.
         /// </summary>
         /// <docgen category='Performance Counter Options' order='10' />
-        [RequiredParameter]
         public string Category { get; set; }
 
         /// <summary>
         /// Gets or sets the name of the performance counter.
         /// </summary>
         /// <docgen category='Performance Counter Options' order='10' />
-        [RequiredParameter]
         public string Counter { get; set; }
 
         /// <summary>
@@ -110,6 +108,12 @@ namespace NLog.LayoutRenderers
         protected override void InitializeLayoutRenderer()
         {
             base.InitializeLayoutRenderer();
+
+            if (string.IsNullOrEmpty(Category))
+                throw new NLogConfigurationException($"{nameof(Category)} must be specified.");
+
+            if (string.IsNullOrEmpty(Counter))
+                throw new NLogConfigurationException($"{nameof(Counter)} must be specified.");
 
             if (_instance is null && string.Equals(Category, "Process", StringComparison.OrdinalIgnoreCase))
             {
