@@ -2,7 +2,7 @@
 NLog extensions to [Display Windows Performance Counters](https://github.com/NLog/NLog/wiki/PerformanceCounter-Layout-Renderer) and [Update Windows Performance Counters](https://github.com/NLog/NLog/wiki/PerfCounter-target)
 
 [![Version](https://badge.fury.io/nu/NLog.PerformanceCounter.svg)](https://www.nuget.org/packages/NLog.PerformanceCounter)
-[![AppVeyor](https://img.shields.io/appveyor/ci/nlog/NLog-PerformanceCounter/master.svg)](https://ci.appveyor.com/project/nlog/NLog-PerformanceCounter/branch/master)
+[![CI](https://github.com/NLog/NLog.PerformanceCounter/actions/workflows/ci.yml/badge.svg?branch=master)](https://github.com/NLog/NLog.PerformanceCounter/actions/workflows/ci.yml)
 
 
 ### How to install
