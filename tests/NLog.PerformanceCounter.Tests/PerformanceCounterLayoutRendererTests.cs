@@ -33,9 +33,10 @@
 
 namespace NLog.PerformanceCounter.Tests
 {
-    using Xunit;
-    using NLog.LayoutRenderers;
     using System;
+    using NLog.Config;
+    using NLog.LayoutRenderers;
+    using Xunit;
 
     public class PerformanceCounterLayoutRendererTests
     {
@@ -47,6 +48,7 @@ namespace NLog.PerformanceCounter.Tests
         [SkippableFact]
         public void PerformanceCounterLayoutRendererTest()
         {
+            // Arrange
             Skip.IfNot(Environment.OSVersion.Platform == PlatformID.Win32NT, "Performance counters are only supported on Windows.");
 
             var logFactory = new LogFactory().Setup().SetupExtensions(ext => ext.RegisterLayoutRenderer<PerformanceCounterLayoutRenderer>("performancecounter")).
@@ -61,12 +63,71 @@ namespace NLog.PerformanceCounter.Tests
             var debugTarget = logFactory.Configuration.FindTargetByName<NLog.Targets.DebugTarget>("debug");
 
             var logger = logFactory.GetLogger("A");
+
+            // Act
             logger.Debug("a");
-            Assert.NotEqual(0, long.Parse(debugTarget.LastMessage));
+            var firstValue = long.Parse(debugTarget.LastMessage);
             logger.Debug("b");
             logger.Debug("c");
             logger.Debug("d");
-            Assert.NotEqual(0, long.Parse(debugTarget.LastMessage));
+            var lastValue = long.Parse(debugTarget.LastMessage);
+
+            // Assert
+            Assert.NotEqual(0, firstValue);
+            Assert.NotEqual(0, lastValue);
+        }
+
+        [Fact]
+        public void InitializeLayoutRenderer_ThrowsWhenCategoryIsMissing()
+        {
+            // Arrange
+            var renderer = new TestPerformanceCounterLayoutRenderer { Counter = "Working Set" };
+
+            // Act
+            var exception = Assert.Throws<NLogConfigurationException>(renderer.InitializeForTest);
+
+            // Assert
+            Assert.Contains(nameof(PerformanceCounterLayoutRenderer.Category), exception.Message);
+        }
+
+        [Fact]
+        public void InitializeLayoutRenderer_ThrowsWhenCounterIsMissing()
+        {
+            // Arrange
+            var renderer = new TestPerformanceCounterLayoutRenderer { Category = "Process" };
+
+            // Act
+            var exception = Assert.Throws<NLogConfigurationException>(renderer.InitializeForTest);
+
+            // Assert
+            Assert.Contains(nameof(PerformanceCounterLayoutRenderer.Counter), exception.Message);
+        }
+
+        [Fact]
+        public void DefaultOptions_AreInitialized()
+        {
+            // Arrange
+            var renderer = new PerformanceCounterLayoutRenderer();
+
+            // Act
+            var instance = renderer.Instance;
+            var machineName = renderer.MachineName;
+            var format = renderer.Format;
+            var culture = renderer.Culture;
+
+            // Assert
+            Assert.Null(instance);
+            Assert.Null(machineName);
+            Assert.Null(format);
+            Assert.Null(culture);
+        }
+
+        private sealed class TestPerformanceCounterLayoutRenderer : PerformanceCounterLayoutRenderer
+        {
+            public void InitializeForTest()
+            {
+                InitializeLayoutRenderer();
+            }
         }
     }
 }
