@@ -14,8 +14,7 @@
     <Title>NLog Windows PerformanceCounter</Title>
     <Company>NLog</Company>
     <Description>NLog.PerformanceCounter provides support for Windows Performance Counters</Description>
-    <Product>NLog.PerformanceCounter v$(ProductVersion)</Product>
-    <InformationalVersion>$(ProductVersion)</InformationalVersion>
+    <Product>NLog.PerformanceCounter v$(VersionPrefix)</Product>
     <Authors>Jarek Kowalski,Kim Christensen,Julian Verdurmen</Authors>
     <CurrentYear>$([System.DateTime]::Now.ToString(yyyy))</CurrentYear>
     <Copyright>Copyright (c) 2004-$(CurrentYear) NLog Project - https://nlog-project.org/ </Copyright>
