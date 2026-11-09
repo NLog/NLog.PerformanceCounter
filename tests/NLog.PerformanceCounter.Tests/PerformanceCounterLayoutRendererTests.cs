@@ -35,6 +35,7 @@ namespace NLog.PerformanceCounter.Tests
 {
     using Xunit;
     using NLog.LayoutRenderers;
+    using System;
 
     public class PerformanceCounterLayoutRendererTests
     {
@@ -43,9 +44,11 @@ namespace NLog.PerformanceCounter.Tests
             LogManager.ThrowExceptions = true;
         }
 
-        [Fact]
+        [SkippableFact]
         public void PerformanceCounterLayoutRendererTest()
         {
+            Skip.IfNot(Environment.OSVersion.Platform == PlatformID.Win32NT, "Performance counters are only supported on Windows.");
+
             var logFactory = new LogFactory().Setup().SetupExtensions(ext => ext.RegisterLayoutRenderer<PerformanceCounterLayoutRenderer>("performancecounter")).
                 LoadConfigurationFromXml(@"
             <nlog>
