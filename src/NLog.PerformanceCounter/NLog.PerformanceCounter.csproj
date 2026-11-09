@@ -1,14 +1,13 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>net35;net45;net46;netstandard2.0</TargetFrameworks>
+    <TargetFrameworks>net35;net46;netstandard2.0</TargetFrameworks>
     <RootNamespace>NLog</RootNamespace>
 
-    <VersionPrefix>5.2.0</VersionPrefix>
+    <VersionPrefix>6.2.2</VersionPrefix>
     <VersionSuffix></VersionSuffix>
 
-    <AssemblyVersion>5.0.0.0</AssemblyVersion>
-    <!-- AssemblyVersion must be fixed on 5.0.0.0 -->
+    <AssemblyVersion>$([System.Version]::Parse('$(VersionPrefix)').Major).0.0.0</AssemblyVersion>
     <FileVersion>$(VersionPrefix).0</FileVersion>
 
     <Title>NLog Windows PerformanceCounter</Title>
@@ -20,11 +19,10 @@
     <Copyright>Copyright (c) 2004-$(CurrentYear) NLog Project - https://nlog-project.org/ </Copyright>
 
     <PackageReleaseNotes>
-PerformanceCounter Target Docs:
-https://github.com/NLog/NLog/wiki/PerfCounter-target
-
-PerformanceCounter LayoutRenderer Docs:
-https://github.com/NLog/NLog/wiki/PerformanceCounter-Layout-Renderer
+    - Update NLog dependency to 6.2.2.
+    - Update System.Diagnostics.PerformanceCounter dependency to 10.0.14.
+    - Drop support for .NET Framework 4.5, which is end of life.
+    - See [PerformanceCounter Target Docs](https://github.com/NLog/NLog/wiki/PerfCounter-target) and [PerformanceCounter LayoutRenderer Docs](https://github.com/NLog/NLog/wiki/PerformanceCounter-Layout-Renderer).
     </PackageReleaseNotes>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>NLog;Windows;PerformanceCounter;logging;log</PackageTags>
@@ -47,11 +45,6 @@ https://github.com/NLog/NLog/wiki/PerformanceCounter-Layout-Renderer
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
   </PropertyGroup>
 
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net45' ">
-    <Title>NLog.PerformanceCounter for .NET Framework 4.5</Title>
-    <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
-  </PropertyGroup>
-
   <PropertyGroup Condition=" '$(TargetFramework)' == 'net35' ">
     <Title>NLog.PerformanceCounter for .NET Framework 3.5</Title>
     <DisableImplicitFrameworkReferences>true</DisableImplicitFrameworkReferences>
@@ -68,11 +61,11 @@ https://github.com/NLog/NLog/wiki/PerformanceCounter-Layout-Renderer
   </ItemGroup>
 
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="4.5.0" />
+    <PackageReference Include="System.Diagnostics.PerformanceCounter" Version="10.0.14" />
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="NLog" Version="5.2.2" />
+    <PackageReference Include="NLog" Version="6.2.2" />
   </ItemGroup>
 
   <PropertyGroup>

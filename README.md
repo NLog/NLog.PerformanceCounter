@@ -12,7 +12,7 @@ NLog extensions to [Display Windows Performance Counters](https://github.com/NLo
     `Install-Package NLog.PerformanceCounter` or in your csproj:
 
     ```xml
-    <PackageReference Include="NLog.PerformanceCounter" Version="5.*" />
+    <PackageReference Include="NLog.PerformanceCounter" Version="6.*" />
     ```
 
 2) Add to your nlog.config:
