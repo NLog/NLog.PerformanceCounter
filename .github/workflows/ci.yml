@@ -42,21 +42,21 @@ jobs:
         if: runner.os == 'Windows'
         run: dotnet build ${{ env.SOLUTION }} --configuration Release --no-restore
 
-      - name: Build net8.0
+      - name: Build net10.0
         if: runner.os == 'Linux'
-        run: dotnet build ${{ env.TEST_PROJECT }} --framework net8.0 --configuration Release --no-restore
+        run: dotnet build ${{ env.TEST_PROJECT }} --framework net10.0 --configuration Release --no-restore
 
       - name: Test net461
         if: runner.os == 'Windows'
         run: dotnet test ${{ env.TEST_PROJECT }} --framework net461 --configuration Release --no-restore --no-build --logger GitHubActions
 
-      - name: Test net8.0 with coverage
+      - name: Test net10.0 with coverage
         if: runner.os == 'Windows'
-        run: dotnet test ${{ env.TEST_PROJECT }} --framework net8.0 --configuration Release --no-restore --no-build --collect:"XPlat Code Coverage" --logger GitHubActions
+        run: dotnet test ${{ env.TEST_PROJECT }} --framework net10.0 --configuration Release --no-restore --no-build --collect:"XPlat Code Coverage" --logger GitHubActions
 
-      - name: Test net8.0 on Linux
+      - name: Test net10.0 on Linux
         if: runner.os == 'Linux'
-        run: dotnet test ${{ env.TEST_PROJECT }} --framework net8.0 --configuration Release --no-restore --no-build --logger GitHubActions
+        run: dotnet test ${{ env.TEST_PROJECT }} --framework net10.0 --configuration Release --no-restore --no-build --logger GitHubActions
 
       - name: Upload coverage to Codecov
         if: matrix.upload_coverage
